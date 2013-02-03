@@ -51,7 +51,7 @@ Add the hidden field for base64 data:
 and replace
 
 ```ruby
-<%= f.file_field :picture, :id => "photo" %>
+<%= f.file_field :picture, id: "photo" %>
 ```
 
 with
