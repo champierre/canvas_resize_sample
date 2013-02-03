@@ -1,0 +1,39 @@
+<%- content_for :head do -%>
+
+<script type="text/javascript">
+
+$().ready(function(){
+  start_time = sessionStorage.getItem("time");
+  if (start_time > 0) {
+    $("p#timestamps").show();
+    end_time = new Date().getTime();
+    $("#start_time").html(start_time);
+    $("#end_time").html(end_time);
+    $("#elapsed_time").html(end_time - start_time);
+    sessionStorage.setItem("time", null);
+  } else {
+    $("p#timestamps").hide();
+  }
+});
+</script>
+<% end %>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @post.name %>
+</p>
+
+<p id="timestamps">
+  Start Time: <span id="start_time"></span><br />
+  End Time: <span id="end_time"></span><br />
+  Elapsed Time: <span id="elapsed_time"></span><br />
+</p>
+
+<p><%= link_to 'Back', posts_path %></p>
+
+<p>
+<%= image_tag @post.picture.url %>
+</p>
+
