@@ -12,13 +12,15 @@ This is a sample Rails app that uses Javascript canvasResize Plugin and papercli
 
 To implement "file resizing before upload" in your project, follow the steps below.
 
-1. Copy jquery.canvasResize.js and jquery.exif.js to app/assets/javascripts
+## Copy JS files
 
-2. In _form.html.erb, add the following javascripts inside the head tag:
+Copy jquery.canvasResize.js and jquery.exif.js to app/assets/javascripts
+
+## _form.html.erb
+
+Add the following javascripts inside the head tag:
 
 ```js
-<script type="text/javascript">
-
 $().ready(function(){
   $('input#original_post_picture').change(function(e){
     var file = e.target.files[0];
@@ -38,11 +40,9 @@ $().ready(function(){
 function clear_original_post_picture() {
   $('input#original_post_picture').val('');
 }
-
-</script>
 ```
 
-3. In _form.html.erb, add the hidden field for base64 data:
+Add the hidden field for base64 data:
 
 ```ruby
 <%= f.hidden_field :picture_base64 %>
@@ -60,7 +60,7 @@ with
 <%= file_field_tag 'original_post_picture' %>
 ```
 
-4. In _form.html.erb, add
+Add
 
 ```ruby
 onclick: "clear_original_post_picture();"
@@ -68,15 +68,18 @@ onclick: "clear_original_post_picture();"
 
 options to submit tag.
 
+## Model
 
-5. In your model, add
+Add
 
 ```ruby
 attr_accessible :picture_base64
 attr_accessor :picture_base64
 ```
 
-6. In create/edit action of your controller, add
+## Controller
+
+In create/edit action of your controller, add
 
 ```ruby
 if params[:post][:picture_base64].present?
