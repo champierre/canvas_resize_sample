@@ -17,7 +17,7 @@ To implement "file resizing before upload" in your project, follow the steps bel
 2. In _form.html.erb, add the following javascripts inside the head tag:
 
     <script type="text/javascript">
-
+    
     $().ready(function(){
       $('input#original_post_picture').change(function(e){
         var file = e.target.files[0];
@@ -33,22 +33,22 @@ To implement "file resizing before upload" in your project, follow the steps bel
         });
       });
     });
-
+    
     function clear_original_post_picture() {
       $('input#original_post_picture').val('');
     }
-
+    
     </script>
-
+    
 3. In _form.html.erb, add the hidden field for base64 data:
 
     <%= f.hidden_field :picture_base64 %>
 
-and replace
-
-    <%= f.file_field :picture, :id => "photo" %>
-
-with
+    and replace
+    
+      <%= f.file_field :picture, :id => "photo" %>
+    
+    with
 
     <%= file_field_tag 'original_post_picture' %>
 
@@ -66,15 +66,15 @@ options to submit tag.
 
 6. In create/edit action of your controller, add
 
-    if params[:post][:picture_base64].present?
-      /data:image\/(.*);base64,/ =~ params[:post][:picture_base64]
-      ext = $1
-      data = params[:post][:picture_base64].gsub(/data:image\/.*;base64,/, '')
-      file = Tempfile.new(["post_picture", ".#{ext}"])
-      file.binmode
-      file.write(Base64.decode64 data)
-      params[:post][:picture] = file
-    end
+      if params[:post][:picture_base64].present?
+        /data:image\/(.*);base64,/ =~ params[:post][:picture_base64]
+        ext = $1
+        data = params[:post][:picture_base64].gsub(/data:image\/.*;base64,/, '')
+        file = Tempfile.new(["post_picture", ".#{ext}"])
+        file.binmode
+        file.write(Base64.decode64 data)
+        params[:post][:picture] = file
+      end
 
 then, close the file at the end:
 
