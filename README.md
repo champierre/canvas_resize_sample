@@ -96,5 +96,5 @@ end
 then, close the file at the end:
 
 ```ruby
-file.close if params[:spot][:picture_base64].present?
+file.close if params[:post][:picture_base64].present?
 ```
